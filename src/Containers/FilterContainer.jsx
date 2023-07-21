@@ -10,6 +10,7 @@ import Styles from './FilterContainer.styles.scss';
 import Button from './../Components/Common/Button';
 import { useTheme } from '../state/theme/Context';
 import ErrorFilter from '../Components/Filters/ErrorFilter';
+import AccessFilter from '../Components/Filters/AccessFilter';
 import Reset from '../Components/Import/Reset';
 
 const context = classNames.bind(Styles);
@@ -19,6 +20,7 @@ const FilterContainer = () => {
   const { showImportHAR } = useTheme();
   const filter = state.get('filter');
   const filterByError = state.get('errorFilter');
+  const filterByAccess = state.get('accessFilter');
 
   return (
     <section className={Styles['filters-container']}>
@@ -61,6 +63,10 @@ const FilterContainer = () => {
             <ErrorFilter
               isError={filterByError}
               onChange={actions.updateErrorFilter}
+            />
+            <AccessFilter
+              isAccess={filterByAccess}
+              onChange={actions.updateAccessFilter}
             />
             {showImportHAR && (
               <>

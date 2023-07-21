@@ -43,7 +43,7 @@ const NetworkTableContainer = ({ onRequestSelect }) => {
         {showImportHAR && (
           <>
             <ImportHar showButton={false} />
-            <InputHAR />
+            {/* <InputHAR /> */}
           </>
         )}
       </section>

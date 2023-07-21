@@ -21,6 +21,7 @@ const initialState = new Map({
     value: null,
   },
   errorFilter: false,
+  accessFilter: false,
   error: null,
   loading: false,
   scrollToIndex: null,
@@ -34,28 +35,24 @@ const reducer = (state = initialState, { type, payload }) => {
     case types.UPDATE_DATA: {
       return state.withMutations((newState) => {
         const sort = state.get('sort');
-        const {
-          data,
-          totalNetworkTime,
-          totalRequests,
-          totalTransferredSize,
-          totalUncompressedSize,
-          finishTime,
-        } = prepareViewerData(payload.entries);
+        const { data, totalNetworkTime, totalRequests, totalTransferredSize, totalUncompressedSize, finishTime } = prepareViewerData(payload.entries);
         const sortedData = new List(sortBy(data, sort.key, sort.isAcs));
         newState
           .set('error', null)
           .set('data', sortedData)
           .set('actualData', sortedData)
           .set('totalNetworkTime', totalNetworkTime)
-          .set('dataSummary', new Map({
-            totalRequests,
-            totalTransferredSize,
-            totalUncompressedSize,
-            finishTime,
-            timings: calculateTimings(payload.pages),
-            finish: finishTime,
-          }));
+          .set(
+            'dataSummary',
+            new Map({
+              totalRequests,
+              totalTransferredSize,
+              totalUncompressedSize,
+              finishTime,
+              timings: calculateTimings(payload.pages),
+              finish: finishTime,
+            }),
+          );
       });
     }
     case types.UPDATE_SEARCH: {
@@ -65,6 +62,7 @@ const reducer = (state = initialState, { type, payload }) => {
           filter: state.get('filter'),
           search: payload,
           errorFilter: state.get('errorFilter'),
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -82,6 +80,7 @@ const reducer = (state = initialState, { type, payload }) => {
           filter: payload,
           search: state.get('search'),
           errorFilter: state.get('errorFilter'),
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -99,6 +98,7 @@ const reducer = (state = initialState, { type, payload }) => {
           filter: state.get('filter'),
           search: state.get('search'),
           errorFilter: payload,
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -109,40 +109,48 @@ const reducer = (state = initialState, { type, payload }) => {
           .setIn(['dataSummary', 'totalUncompressedSize'], summary.totalUncompressedSize);
       });
     }
+    case types.UPDATE_ACCESS_FILTER: {
+      return state.withMutations((newState) => {
+        const data = filterData({
+          data: state.get('actualData'),
+          filter: state.get('filter'),
+          search: state.get('search'),
+          errorFilter: state.get('errorFilter'),
+          accessFilter: payload,
+        });
+        const summary = getSummary(data);
+        newState
+          .set('accessFilter', payload)
+          .set('data', data)
+          .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
+          .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
+          .setIn(['dataSummary', 'totalUncompressedSize'], summary.totalUncompressedSize);
+      });
+    }
     case types.UPDATE_SORT: {
       return state.withMutations((newState) => {
-        newState
-          .set('sort', payload)
-          .set('data', sortBy(state.get('data'), payload.key, payload.isAcs));
+        newState.set('sort', payload).set('data', sortBy(state.get('data'), payload.key, payload.isAcs));
       });
     }
     case types.FETCH_FILE.REQUEST: {
       return state.withMutations((newState) => {
-        newState
-          .set('error', null)
-          .set('loading', true);
+        newState.set('error', null).set('loading', true);
       });
     }
     case types.FETCH_FILE.SUCCESS: {
       return state.withMutations((newState) => {
-        newState
-          .set('error', null)
-          .set('loading', false);
+        newState.set('error', null).set('loading', false);
       });
     }
     case types.FETCH_FILE.FAILURE:
     case types.UPDATE_ERROR_MESSAGE: {
       return state.withMutations((newState) => {
-        newState
-          .set('error', payload)
-          .set('loading', false);
+        newState.set('error', payload).set('loading', false);
       });
     }
     case types.UPDATE_SCROLL_TO_INDEX: {
       return state.withMutations((newState) => {
-        newState
-          .set('selectedReqIndex', payload ? payload.index : null)
-          .set('reqDetail', payload);
+        newState.set('selectedReqIndex', payload ? payload.index : null).set('reqDetail', payload);
       });
     }
     case types.SELECT_REQUEST: {

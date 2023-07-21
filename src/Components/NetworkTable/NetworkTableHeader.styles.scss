@@ -61,6 +61,11 @@ tbody {
       background: $dark-gray;
       color: $white-100;
     }
+
+    &.isAccess {
+      background: $brand-success;
+      color: $white-100;
+    }
   }
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -20,11 +21,14 @@ const NetworkTableRow = ({
     onSelect(payload);
   };
 
+  const isAccess = payload.domain.includes('cloudflareaccess') || payload.url.includes('/cdn-cgi/access');
+
   const rowProps = {
     className: context(
       'network-table-row',
       getStatusClass(payload), {
         highlight: scrollHighlight,
+        isAccess,
       }),
     id: ROW_ID_PREFIX + payload.index,
     onClick: handleSelectRequest,

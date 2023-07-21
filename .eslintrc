@@ -8,5 +8,9 @@
         "extensions": [".js", ".jsx"]
       }
     }
-  }
+  },
+  "rules" : {
+    "no-console": "off",
+    "max-len": 1
+}
 }

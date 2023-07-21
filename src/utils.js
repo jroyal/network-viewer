@@ -229,6 +229,8 @@ export const filterCondition = ({ filter, info }) => {
   switch (filter.name) {
     case 'error':
       return info.status >= 400 || info.error;
+    case 'access':
+      return info.url.includes('cloudflareaccess') || info.url.includes('/cdn-cgi/access');
     case 'type':
     default:
       return filter.value.includes(info[filter.name]);
@@ -238,19 +240,21 @@ export const filterCondition = ({ filter, info }) => {
 export const filterData = ({
   data,
   errorFilter,
+  accessFilter,
   filter = {},
   search = {},
 }) => {
   const trimmedSearch = search.value && search.value.trim();
 
-  return !trimmedSearch && !filter.name && !errorFilter ?
+  return !trimmedSearch && !filter.name && !errorFilter && !accessFilter ?
     data :
     data.filter((info) => {
       const isSearchMatched = trimmedSearch ?
         info[search.name] && info[search.name].includes(trimmedSearch) : true;
       const isErrorMatched = errorFilter ? filterCondition({ filter: { name: 'error' }, info }) : true;
+      const isAccessMatched = accessFilter ? filterCondition({ filter: { name: 'access' }, info }) : true;
       const isFilterMatched = filter.name ? filterCondition({ filter, info }) : true;
-      return isSearchMatched && isErrorMatched && isFilterMatched;
+      return isSearchMatched && isErrorMatched && isFilterMatched && isAccessMatched;
     });
 };
 
@@ -322,7 +326,9 @@ export const calcChartAttributes = (data, maxTime, cx, index, cy = null) => {
 
   Object.keys(TIMINGS).forEach((key) => {
     const timingInfo = TIMINGS[key];
-    const dataKey = Array.isArray(timingInfo.dataKey) ? timingInfo.dataKey.find((key) => data[key]) : timingInfo.dataKey;
+    const dataKey = Array.isArray(timingInfo.dataKey) ?
+      timingInfo.dataKey.find((key) => data[key]) :
+      timingInfo.dataKey;
     const value = data[dataKey];
     if (value <= 0) {
       return;

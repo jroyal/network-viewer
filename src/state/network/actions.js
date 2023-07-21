@@ -27,37 +27,50 @@ export const updateErrorFilter = (dispatch) => (payload) => dispatch({
   payload,
 });
 
+export const updateAccessFilter = (dispatch) => (payload) => dispatch({
+  type: types.UPDATE_ACCESS_FILTER,
+  payload,
+});
+
 export const fetchFileRequest = (dispatch) => (payload) => dispatch({
-  type: types.FETCH_FILE.REQUEST, payload,
+  type: types.FETCH_FILE.REQUEST,
+  payload,
 });
 
 export const fetchFileSuccess = (dispatch) => (payload) => dispatch({
-  type: types.FETCH_FILE.SUCCESS, payload,
+  type: types.FETCH_FILE.SUCCESS,
+  payload,
 });
 
 export const fetchFileFailure = (dispatch) => (payload) => dispatch({
-  type: types.FETCH_FILE.FAILURE, payload,
+  type: types.FETCH_FILE.FAILURE,
+  payload,
 });
 
 export const updateErrorMessage = (dispatch) => (payload) => dispatch({
-  type: types.UPDATE_ERROR_MESSAGE, payload,
+  type: types.UPDATE_ERROR_MESSAGE,
+  payload,
 });
 
 export const updateScrollToIndex = (dispatch) => (payload) => dispatch({
-  type: types.UPDATE_SCROLL_TO_INDEX, payload,
+  type: types.UPDATE_SCROLL_TO_INDEX,
+  payload,
 });
 
 export const selectRequest = (dispatch) => (payload) => dispatch({
-  type: types.SELECT_REQUEST, payload,
+  type: types.SELECT_REQUEST,
+  payload,
 });
 
 export const resetState = (dispatch) => (payload) => dispatch({
-  type: types.RESET, payload,
+  type: types.RESET,
+  payload,
 });
 
 export const fetchFile = (dispatch) => (file, options = { withCredentials: true }) => {
   fetchFileRequest(dispatch)();
-  axios.get(file, options)
+  axios
+    .get(file, options)
     .then(({ data }) => {
       if (data && data.log) {
         updateData(dispatch)(data.log);
@@ -67,5 +80,6 @@ export const fetchFile = (dispatch) => (file, options = { withCredentials: true 
     .catch((error) => fetchFileFailure(dispatch)({
       title: 'Error while fetching file',
       description: error.message,
-    }));
+    }),
+    );
 };
