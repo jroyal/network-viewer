@@ -25,7 +25,6 @@ function parseCookieString(rawCookieStr, isSetCookie = false) {
       .filter(Boolean)
       .join(';');
   }
-  console.log(data);
   data.split(';').forEach((cookie) => {
     const parts = cookie.trim().split('=');
     const name = decodeURIComponent(parts[0]);
@@ -48,8 +47,6 @@ const AccessCookies = ({ data }) => {
   const cookieRaw = getHeader(data, 'cookie');
   const cookies = parseCookieString(cookieRaw);
 
-  console.log(setCookies);
-  console.log(cookies);
   return (
     <div className={Styles['header-detail']}>
       {setCookies && Object.keys(setCookies).map((key, index) => (

@@ -1,3 +1,6 @@
+// eslint-disable-next-line global-require
+window.Buffer = window.Buffer || require('buffer').Buffer;
+
 export function getHeader(headerArray, name) {
   const possibleMatches = headerArray.filter((header) => header.name === name);
   if (possibleMatches.length === 0) {
