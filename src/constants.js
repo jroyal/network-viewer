@@ -208,6 +208,22 @@ export const HEADERS_TITLES = Object.freeze({
     key: 'requestPayload',
     name: 'Request Payload',
   }),
+  meta: Object.freeze({
+    key: 'accessMeta',
+    name: 'Meta',
+  }),
+  state: Object.freeze({
+    key: 'accessState',
+    name: 'State',
+  }),
+  accessResponseCookies: Object.freeze({
+    key: 'accessResponseCookies',
+    name: 'Response Cookies',
+  }),
+  accessRequestCookies: Object.freeze({
+    key: 'accessRequestCookies',
+    name: 'Request Cookies',
+  }),
 });
 
 export const MAX_COLOR_CONTENT_SIZE = 100000; // 100kB
