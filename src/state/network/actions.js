@@ -32,6 +32,11 @@ export const updateAccessFilter = (dispatch) => (payload) => dispatch({
   payload,
 });
 
+export const updateGatewayFilter = (dispatch) => (payload) => dispatch({
+  type: types.UPDATE_GATEWAY_FILTER,
+  payload,
+});
+
 export const fetchFileRequest = (dispatch) => (payload) => dispatch({
   type: types.FETCH_FILE.REQUEST,
   payload,

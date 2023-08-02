@@ -231,6 +231,8 @@ export const filterCondition = ({ filter, info }) => {
       return info.status >= 400 || info.error;
     case 'access':
       return info.url.includes('cloudflareaccess') || info.url.includes('/cdn-cgi/access');
+    case 'gateway':
+      return info.body ? info.body.includes('Cloudflare Gateway Error') : false;
     case 'type':
     default:
       return filter.value.includes(info[filter.name]);
@@ -241,20 +243,22 @@ export const filterData = ({
   data,
   errorFilter,
   accessFilter,
+  gatewayFilter,
   filter = {},
   search = {},
 }) => {
   const trimmedSearch = search.value && search.value.trim();
 
-  return !trimmedSearch && !filter.name && !errorFilter && !accessFilter ?
+  return !trimmedSearch && !filter.name && !errorFilter && !accessFilter && !gatewayFilter ?
     data :
     data.filter((info) => {
       const isSearchMatched = trimmedSearch ?
         info[search.name] && info[search.name].includes(trimmedSearch) : true;
       const isErrorMatched = errorFilter ? filterCondition({ filter: { name: 'error' }, info }) : true;
       const isAccessMatched = accessFilter ? filterCondition({ filter: { name: 'access' }, info }) : true;
+      const isGatewayMatched = gatewayFilter ? filterCondition({ filter: { name: 'gateway' }, info }) : true;
       const isFilterMatched = filter.name ? filterCondition({ filter, info }) : true;
-      return isSearchMatched && isErrorMatched && isFilterMatched && isAccessMatched;
+      return isSearchMatched && isErrorMatched && isFilterMatched && isAccessMatched && isGatewayMatched;
     });
 };
 

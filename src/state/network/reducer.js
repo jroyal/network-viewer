@@ -22,6 +22,7 @@ const initialState = new Map({
   },
   errorFilter: false,
   accessFilter: false,
+  gatewayFilter: false,
   error: null,
   loading: false,
   scrollToIndex: null,
@@ -63,6 +64,7 @@ const reducer = (state = initialState, { type, payload }) => {
           search: payload,
           errorFilter: state.get('errorFilter'),
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -81,6 +83,7 @@ const reducer = (state = initialState, { type, payload }) => {
           search: state.get('search'),
           errorFilter: state.get('errorFilter'),
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -99,6 +102,7 @@ const reducer = (state = initialState, { type, payload }) => {
           search: state.get('search'),
           errorFilter: payload,
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -117,10 +121,30 @@ const reducer = (state = initialState, { type, payload }) => {
           search: state.get('search'),
           errorFilter: state.get('errorFilter'),
           accessFilter: payload,
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
           .set('accessFilter', payload)
+          .set('data', data)
+          .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
+          .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
+          .setIn(['dataSummary', 'totalUncompressedSize'], summary.totalUncompressedSize);
+      });
+    }
+    case types.UPDATE_GATEWAY_FILTER: {
+      return state.withMutations((newState) => {
+        const data = filterData({
+          data: state.get('actualData'),
+          filter: state.get('filter'),
+          search: state.get('search'),
+          errorFilter: state.get('errorFilter'),
+          accessFilter: state.get('accessFilter'),
+          gatewayFilter: payload,
+        });
+        const summary = getSummary(data);
+        newState
+          .set('gatewayFilter', payload)
           .set('data', data)
           .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
           .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)

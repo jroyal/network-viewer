@@ -22,6 +22,7 @@ export const useNetwork = () => {
     updateScrollToIndex: actions.updateScrollToIndex,
     updateErrorFilter: actions.updateErrorFilter,
     updateAccessFilter: actions.updateAccessFilter,
+    updateGatewayFilter: actions.updateGatewayFilter,
     resetState: actions.resetState,
   })(dispatch, state);
 

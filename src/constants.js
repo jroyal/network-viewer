@@ -46,62 +46,62 @@ export const FILTERS = [
       value: ['xhr', 'XHR', 'fetch'],
     },
   },
-  {
-    name: 'JS',
-    filterBy: {
-      name: 'type',
-      value: ['script', 'javascript', 'x-javascript', 'json'],
-    },
-  },
-  {
-    name: 'CSS',
-    filterBy: {
-      name: 'type',
-      value: ['stylesheet', 'css'],
-    },
-  },
-  {
-    name: 'Img',
-    filterBy: {
-      name: 'type',
-      value: ['image', 'png', 'jpeg', 'svg+xml', 'gif'],
-    },
-  },
-  {
-    name: 'Media',
-    filterBy: {
-      name: 'type',
-      value: ['media'],
-    },
-  },
-  {
-    name: 'Font',
-    filterBy: {
-      name: 'type',
-      value: ['font', 'woff2'],
-    },
-  },
-  {
-    name: 'Doc',
-    filterBy: {
-      name: 'type',
-      value: ['document', 'html'],
-    },
-  },
-  {
-    name: 'WS',
-    filterBy: {
-      name: 'type',
-      value: ['websocket'],
-    },
-  },
-  {
-    name: 'Manifest',
-    filterBy: {
-      name: 'type',
-      value: ['manifest.json'],
-    },
-  },
+  // {
+  //   name: 'JS',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['script', 'javascript', 'x-javascript', 'json'],
+  //   },
+  // },
+  // {
+  //   name: 'CSS',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['stylesheet', 'css'],
+  //   },
+  // },
+  // {
+  //   name: 'Img',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['image', 'png', 'jpeg', 'svg+xml', 'gif'],
+  //   },
+  // },
+  // {
+  //   name: 'Media',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['media'],
+  //   },
+  // },
+  // {
+  //   name: 'Font',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['font', 'woff2'],
+  //   },
+  // },
+  // {
+  //   name: 'Doc',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['document', 'html'],
+  //   },
+  // },
+  // {
+  //   name: 'WS',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['websocket'],
+  //   },
+  // },
+  // {
+  //   name: 'Manifest',
+  //   filterBy: {
+  //     name: 'type',
+  //     value: ['manifest.json'],
+  //   },
+  // },
 ];
 
 export const FETCH_FILE_LOAD_TEXT = 'Please wait, Fetching file is in progress.';

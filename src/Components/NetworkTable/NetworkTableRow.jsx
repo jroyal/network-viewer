@@ -22,6 +22,8 @@ const NetworkTableRow = ({
   };
 
   const isAccess = payload.domain.includes('cloudflareaccess') || payload.url.includes('/cdn-cgi/access');
+  const isGateway = payload.body ? payload.body.includes('Cloudflare Gateway Error') : false;
+  console.log(payload, isGateway);
 
   const rowProps = {
     className: context(
@@ -29,6 +31,7 @@ const NetworkTableRow = ({
       getStatusClass(payload), {
         highlight: scrollHighlight,
         isAccess,
+        isGateway,
       }),
     id: ROW_ID_PREFIX + payload.index,
     onClick: handleSelectRequest,

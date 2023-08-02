@@ -11,6 +11,7 @@ import Button from './../Components/Common/Button';
 import { useTheme } from '../state/theme/Context';
 import ErrorFilter from '../Components/Filters/ErrorFilter';
 import AccessFilter from '../Components/Filters/AccessFilter';
+import GatewayFilter from '../Components/Filters/GatewayFilter';
 import Reset from '../Components/Import/Reset';
 
 const context = classNames.bind(Styles);
@@ -21,6 +22,7 @@ const FilterContainer = () => {
   const filter = state.get('filter');
   const filterByError = state.get('errorFilter');
   const filterByAccess = state.get('accessFilter');
+  const filterByGateway = state.get('gatewayFilter');
 
   return (
     <section className={Styles['filters-container']}>
@@ -67,6 +69,10 @@ const FilterContainer = () => {
             <AccessFilter
               isAccess={filterByAccess}
               onChange={actions.updateAccessFilter}
+            />
+            <GatewayFilter
+              isGateway={filterByGateway}
+              onChange={actions.updateGatewayFilter}
             />
             {showImportHAR && (
               <>
