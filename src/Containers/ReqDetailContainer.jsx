@@ -8,6 +8,7 @@ import Headers from './../Components/ReqDetail/Headers';
 import IconCloseSign from './../icons/IconCloseSign';
 import Response from '../Components/ReqDetail/Response';
 import AccessHeaders from '../Components/ReqDetail/Access';
+import GatewayHeaders from '../Components/ReqDetail/Gateway';
 
 const ReqDetailContainer = () => {
   const { actions, state } = useNetwork();
@@ -49,6 +50,12 @@ const ReqDetailContainer = () => {
           name="Access"
         >
           <AccessHeaders data={reqDetail} />
+        </Tab>
+        <Tab
+          eventKey="gateway"
+          name="Gateway"
+        >
+          <GatewayHeaders data={reqDetail} />
         </Tab>
       </Tabs>
     </div>
