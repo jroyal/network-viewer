@@ -224,6 +224,10 @@ export const HEADERS_TITLES = Object.freeze({
     key: 'accessRequestCookies',
     name: 'Request Cookies',
   }),
+  accessIdentity: Object.freeze({
+    key: 'accessIdentity',
+    name: 'Identity',
+  }),
 });
 
 export const MAX_COLOR_CONTENT_SIZE = 100000; // 100kB

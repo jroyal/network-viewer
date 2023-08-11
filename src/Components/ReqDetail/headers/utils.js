@@ -12,10 +12,15 @@ export function getHeader(headerArray, name) {
 }
 
 export function parseState(state) {
-  const data = state.split('.')[1].trim();
-  // lol
-  const decoded = decodeURIComponent(Buffer.from(decodeURIComponent(decodeURIComponent(data)), 'base64')).trim();
-  return JSON.parse(decoded);
+  try {
+    const data = state.split('.')[1].trim();
+    // lol
+    const decoded = decodeURIComponent(Buffer.from(decodeURIComponent(decodeURIComponent(data)), 'base64')).trim();
+    return JSON.parse(decoded);
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 }
 
 export function getJWTClaims(jwt) {

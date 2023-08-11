@@ -5,7 +5,7 @@ import Styles from './../Headers.styles.scss';
 import { getHeader, parseState } from './utils';
 
 const AccessGeneral = ({ data }) => {
-  const teamDomain = data.url.includes('/cdn-cgi/access/authorized') ? parseState(getHeader(data.headers.queryString, 'state')).authDomain : data.domain;
+  const teamDomain = data.url.includes('/cdn-cgi/access/authorized') ? parseState(getHeader(data.headers.queryString, 'state'))?.authDomain : data.domain;
   const aud = getHeader(data.headers.queryString, 'kid');
   const version = getHeader(data.headers.response, 'cf-version');
   return (

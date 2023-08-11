@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Styles from './../Headers.styles.scss';
-import { getHeader, parseState } from './utils';
 
-const AccessState = ({ data }) => {
-  const state = parseState(getHeader(data.headers.queryString, 'state'));
-  return state ? (
+const AccessGetIdentity = ({ data }) => {
+  const rawBody = data.body;
+  let decoded;
+  try {
+    decoded = JSON.parse(Buffer.from(decodeURIComponent(rawBody), 'base64'));
+  } catch (err) {
+    console.log(err);
+  }
+
+  return decoded ? (
     <div className={Styles['header-detail']}>
-      {Object.keys(state).map((key, index) => (
+      {Object.keys(decoded).map((key, index) => (
         <p
           key={`${key}-${index}`}
           className={Styles['info-row']}
@@ -17,20 +23,20 @@ const AccessState = ({ data }) => {
             {`${key}:`}
           </span>
           <span className={Styles['info-value']}>
-            {`${JSON.stringify(state[key])}`}
+            {`${JSON.stringify(decoded[key])}`}
           </span>
         </p>
       ))}
     </div>
-  ) : (<p>Failed to decode state</p>);
+  ) : <p>Failed to decode identity</p>;
 };
 
-AccessState.propTypes = {
+AccessGetIdentity.propTypes = {
   data: PropTypes.object,
 };
 
-AccessState.defaultProps = {
+AccessGetIdentity.defaultProps = {
   data: null,
 };
 
-export default AccessState;
+export default AccessGetIdentity;

@@ -8,6 +8,7 @@ import AccessMeta from './headers/AccessMeta';
 import AccessState from './headers/AccessState';
 import AccessCookies from './headers/AccessCookies';
 import { getHeader } from './headers/utils';
+import AccessGetIdentity from './headers/AccessGetIdentity';
 
 const AccessHeaders = ({ data }) => (!data ? null : (
   <section className={Styles['headers-container']}>
@@ -44,6 +45,13 @@ const AccessHeaders = ({ data }) => (!data ? null : (
         component={AccessCookies}
         data={data.headers.request}
         eventKey="accessRequestCookies"
+      />
+    ) : null}
+    {(data.url.includes('/cdn-cgi/access/get-identity')) ? (
+      <HeaderInfo
+        component={AccessGetIdentity}
+        data={data}
+        eventKey="accessIdentity"
       />
     ) : null}
   </section>
