@@ -20,14 +20,14 @@ const NetworkTableContainer = () => {
   const error = state.get('error');
   const showReqDetail = state.get('showReqDetail');
 
-  const [tableBodyHeight, setTableBodyHeight] = useState(0);
+  const [tableBodyHeight, setTableBodyHeight] = useState(5000);
   const ref = useRef(null);
 
   useEffect(() => {
     if (ref?.current) {
       setTableBodyHeight(ref.current.clientHeight - TABLE_HEADER_HEIGHT);
     }
-  }, [ref]);
+  }, [ref, actualData.size]);
 
   if (error) {
     return (
