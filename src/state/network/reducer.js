@@ -26,6 +26,9 @@ const initialState = new Map({
   accessFilter: {
     value: false
   },
+  gatewayFilter: {
+    value: false
+  },
   error: null,
   loading: false,
   scrollToIndex: null,
@@ -59,6 +62,8 @@ const reducer = (state = initialState, {
           statusFilter: state.get('statusFilter'),
           typeFilter: state.get('typeFilter'),
           search: state.get('search'),
+          accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
 
         newState
@@ -85,6 +90,7 @@ const reducer = (state = initialState, {
           typeFilter: state.get('typeFilter'),
           search: payload,
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -103,6 +109,7 @@ const reducer = (state = initialState, {
           typeFilter: state.get('typeFilter'),
           search: state.get('search'),
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -115,17 +122,36 @@ const reducer = (state = initialState, {
     }
     case types.UPDATE_ACCESS_FILTER: {
       return state.withMutations((newState) => {
-        console.log('reducer', payload)
         const data = filterData({
           data: state.get('actualData'),
           statusFilter: state.get('statusFilter'),
           typeFilter: state.get('typeFilter'),
           search: state.get('search'),
           accessFilter: payload,
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState
           .set('accessFilter', payload)
+          .set('data', data)
+          .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
+          .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
+          .setIn(['dataSummary', 'totalUncompressedSize'], summary.totalUncompressedSize);
+      });
+    }
+    case types.UPDATE_GATEWAY_FILTER: {
+      return state.withMutations((newState) => {
+        const data = filterData({
+          data: state.get('actualData'),
+          statusFilter: state.get('statusFilter'),
+          typeFilter: state.get('typeFilter'),
+          search: state.get('search'),
+          accessFilter: state.get('accessFilter'),
+          gatewayFilter: payload,
+        });
+        const summary = getSummary(data);
+        newState
+          .set('gatewayFilter', payload)
           .set('data', data)
           .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
           .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
@@ -140,6 +166,7 @@ const reducer = (state = initialState, {
           typeFilter: payload,
           search: state.get('search'),
           accessFilter: state.get('accessFilter'),
+          gatewayFilter: state.get('gatewayFilter'),
         });
         const summary = getSummary(data);
         newState

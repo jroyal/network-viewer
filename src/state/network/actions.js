@@ -22,6 +22,11 @@ export const updateAccessFilter = (dispatch) => (payload) => dispatch({
   payload,
 });
 
+export const updateGatewayFilter = (dispatch) => (payload) => dispatch({
+  type: types.UPDATE_GATEWAY_FILTER,
+  payload,
+});
+
 export const updateStatusFilter = (dispatch) => (payload) => dispatch({
   type: types.UPDATE_STATUS_FILTER,
   payload,

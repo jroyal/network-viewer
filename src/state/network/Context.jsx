@@ -19,6 +19,7 @@ export const useNetwork = () => {
     updateStatusFilter: actions.updateStatusFilter,
     updateTypeFilter: actions.updateTypeFilter,
     updateAccessFilter: actions.updateAccessFilter,
+    updateGatewayFilter: actions.updateGatewayFilter,
     updateErrorMessage: actions.updateErrorMessage,
     selectRequest: actions.selectRequest,
     setTableHeaderWidth: actions.setTableHeaderWidth,

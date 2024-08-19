@@ -273,6 +273,8 @@ const applyFilter = (filterOption, filter, entry) => {
       return entry.body && entry.body.includes(filter.value);
     case 'access':
       return filter.value ? entry.url.includes('cloudflareaccess') || entry.url.includes('/cdn-cgi/access') : true;
+    case 'gateway':
+      return filter.value ? (entry.body ? entry.body.includes('Cloudflare Gateway Error') : false) : false;
     default:
       return true;
   }
@@ -284,10 +286,11 @@ export const filterData = ({
   statusFilter = {},
   typeFilter = {},
   accessFilter = {},
+  gatewayFilter = {},
 }) => {
   const trimmedSearch = search.value && search.value.trim();
 
-  if (!trimmedSearch && !statusFilter.value && !typeFilter.value && !accessFilter) {
+  if (!trimmedSearch && !statusFilter.value && !typeFilter.value && !accessFilter && !gatewayFilter) {
     return data;
   }
 
@@ -307,6 +310,10 @@ export const filterData = ({
     {
       option: 'access',
       filter: accessFilter,
+    },
+    {
+      option: 'gateway',
+      filter: gatewayFilter,
     }
   ];
 

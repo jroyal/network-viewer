@@ -82,6 +82,11 @@
     background: $brand-success;
     color: $white-100;
   }
+
+  &.isGateway {
+    background: $brand-warning;
+    color: $white-100;
+  }
 }
 
 .value-text {

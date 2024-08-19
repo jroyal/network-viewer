@@ -8,6 +8,7 @@ import ExportHarButton from '../Components/Actions/ExportHarButton';
 import PauseResumeButton from '../Components/Actions/PauseResumeButton';
 import TypeFilter from '../Components/Filters/TypeFilter';
 import AccessFilter from '../Components/Filters/AccessFilter';
+import GatewayFilter from '../Components/Filters/GatewayFilter';
 import ImportHAR from '../Components/Import/ImportHAR';
 import { useTheme } from '../state/theme/Context';
 import { useNetwork } from '../state/network/Context';
@@ -20,6 +21,7 @@ const FilterContainer = () => {
     showPauseResume,
   } = useTheme();
   const filterByAccess = state.get('accessFilter');
+  const filterByGateway = state.get('gatewayFilter');
 
   return (
     <section className={Styles['filters-container']}>
@@ -37,6 +39,10 @@ const FilterContainer = () => {
         <AccessFilter
           isAccess={filterByAccess.value}
           onChange={actions.updateAccessFilter}
+        />
+        <GatewayFilter
+          isGateway={filterByGateway.value}
+          onChange={actions.updateGatewayFilter}
         />
       </div>
     </section>

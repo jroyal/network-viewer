@@ -24,12 +24,13 @@ const NetworkTableRow = ({
   const { showWaterfall } = useTheme();
   const columns = getViewerFields(showReqDetail, showWaterfall);
   const isAccess = entry.domain.includes('cloudflareaccess') || entry.url.includes('/cdn-cgi/access');
+  const isGateway = entry.body ? entry.body.includes('Cloudflare Gateway Error') : false;
 
   const rowProps = {
     className: context(
       'network-table-row',
       getStatusClass(entry),
-      { highlight: scrollHighlight, isAccess },
+      { highlight: scrollHighlight, isAccess, isGateway },
     ),
     id: ROW_ID_PREFIX + entry.index,
     onClick: () => onSelect(entry),
