@@ -22,11 +22,13 @@ const Headers = ({ data }) => (!data ? null : (
       component={Request}
       data={data}
       eventKey="request"
+      isVisible
     />
     <HeaderInfo
       component={Response}
       data={data}
       eventKey="response"
+      isVisible
     />
     {(data.headers.queryString && data.headers.queryString.length) ? (
       <HeaderInfo
@@ -34,6 +36,7 @@ const Headers = ({ data }) => (!data ? null : (
         data={data}
         eventKey="queryString"
         isEncodeEnabled
+        isVisible
       />
     ) : null}
     {data.headers.postData && data.headers.postData.params && (
@@ -42,6 +45,7 @@ const Headers = ({ data }) => (!data ? null : (
         data={data}
         eventKey="formData"
         isEncodeEnabled
+        isVisible
       />
     )}
     {data.headers.postData && data.headers.postData.text && (
@@ -50,6 +54,7 @@ const Headers = ({ data }) => (!data ? null : (
         data={data}
         eventKey="requestPayload"
         isParseEnabled
+        isVisible
       />
     )}
   </section>

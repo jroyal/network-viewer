@@ -17,6 +17,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessGeneral}
                 data={data}
                 eventKey="general"
+                isVisible
             />
         ) : null}
         {(data.headers.queryString && getHeader(data.headers.queryString, 'meta')) ? (
@@ -24,6 +25,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessMeta}
                 data={data}
                 eventKey="meta"
+                isVisible
             />
         ) : null}
         {(data.headers.queryString && getHeader(data.headers.queryString, 'state')) ? (
@@ -31,6 +33,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessState}
                 data={data}
                 eventKey="state"
+                isVisible
             />
         ) : null}
         {(data.headers.response && getHeader(data.headers.response, 'set-cookie')) ? (
@@ -38,6 +41,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessCookies}
                 data={data.headers.response}
                 eventKey="accessResponseCookies"
+                isVisible
             />
         ) : null}
         {(data.headers.request && getHeader(data.headers.request, 'cookie')) ? (
@@ -45,6 +49,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessCookies}
                 data={data.headers.request}
                 eventKey="accessRequestCookies"
+                isVisible
             />
         ) : null}
         {(data.url.includes('/cdn-cgi/access/get-identity')) ? (
@@ -52,6 +57,7 @@ const AccessHeaders = ({ data }) => (!data ? null : (
                 component={AccessGetIdentity}
                 data={data}
                 eventKey="accessIdentity"
+                isVisible
             />
         ) : null}
     </section>

@@ -13,6 +13,7 @@ const GatewayHeaders = ({ data }) => (!data ? null : (
                 component={GatewayGeneral}
                 data={data}
                 eventKey="general"
+                isVisible
             />
         ) : null}
     </section>
