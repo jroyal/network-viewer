@@ -17,6 +17,11 @@ export const updateSort = (dispatch) => (payload) => dispatch({
   payload,
 });
 
+export const updateAccessFilter = (dispatch) => (payload) => dispatch({
+  type: types.UPDATE_ACCESS_FILTER,
+  payload,
+});
+
 export const updateStatusFilter = (dispatch) => (payload) => dispatch({
   type: types.UPDATE_STATUS_FILTER,
   payload,

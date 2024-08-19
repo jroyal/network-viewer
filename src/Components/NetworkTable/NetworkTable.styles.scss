@@ -23,7 +23,7 @@
 }
 
 .table-column {
-  display:flex;
+  display: flex;
   width: 12%;
   align-self: center;
   padding-right: $size-xs-s;
@@ -45,7 +45,7 @@
   }
 
   &.domain,
-  &.waterfall{
+  &.waterfall {
     width: 15%;
   }
 }
@@ -77,7 +77,13 @@
     background: $dark-gray;
     color: $white-100;
   }
+
+  &.isAccess {
+    background: $brand-success;
+    color: $white-100;
+  }
 }
+
 .value-text {
   text-overflow: ellipsis;
   overflow: hidden;

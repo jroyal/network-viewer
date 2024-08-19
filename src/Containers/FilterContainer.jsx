@@ -7,17 +7,19 @@ import StatusFilter from '../Components/Filters/StatusFilter';
 import ExportHarButton from '../Components/Actions/ExportHarButton';
 import PauseResumeButton from '../Components/Actions/PauseResumeButton';
 import TypeFilter from '../Components/Filters/TypeFilter';
+import AccessFilter from '../Components/Filters/AccessFilter';
 import ImportHAR from '../Components/Import/ImportHAR';
 import { useTheme } from '../state/theme/Context';
 import { useNetwork } from '../state/network/Context';
 
 const FilterContainer = () => {
-  const { state } = useNetwork();
+  const { state, actions } = useNetwork();
   const {
     showImportHar,
     showExportHar,
     showPauseResume,
   } = useTheme();
+  const filterByAccess = state.get('accessFilter');
 
   return (
     <section className={Styles['filters-container']}>
@@ -32,6 +34,10 @@ const FilterContainer = () => {
 
       <div className={Styles['type-filter-row']}>
         <TypeFilter />
+        <AccessFilter
+          isAccess={filterByAccess.value}
+          onChange={actions.updateAccessFilter}
+        />
       </div>
     </section>
   );

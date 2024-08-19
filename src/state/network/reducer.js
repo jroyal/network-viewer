@@ -23,6 +23,9 @@ const initialState = new Map({
     name: null,
     value: null,
   },
+  accessFilter: {
+    value: false
+  },
   error: null,
   loading: false,
   scrollToIndex: null,
@@ -81,6 +84,7 @@ const reducer = (state = initialState, {
           statusFilter: state.get('statusFilter'),
           typeFilter: state.get('typeFilter'),
           search: payload,
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState
@@ -98,10 +102,30 @@ const reducer = (state = initialState, {
           statusFilter: payload,
           typeFilter: state.get('typeFilter'),
           search: state.get('search'),
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState
           .set('statusFilter', payload)
+          .set('data', data)
+          .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
+          .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
+          .setIn(['dataSummary', 'totalUncompressedSize'], summary.totalUncompressedSize);
+      });
+    }
+    case types.UPDATE_ACCESS_FILTER: {
+      return state.withMutations((newState) => {
+        console.log('reducer', payload)
+        const data = filterData({
+          data: state.get('actualData'),
+          statusFilter: state.get('statusFilter'),
+          typeFilter: state.get('typeFilter'),
+          search: state.get('search'),
+          accessFilter: payload,
+        });
+        const summary = getSummary(data);
+        newState
+          .set('accessFilter', payload)
           .set('data', data)
           .setIn(['dataSummary', 'totalRequests'], summary.totalRequests)
           .setIn(['dataSummary', 'totalTransferredSize'], summary.totalTransferredSize)
@@ -115,6 +139,7 @@ const reducer = (state = initialState, {
           statusFilter: state.get('statusFilter'),
           typeFilter: payload,
           search: state.get('search'),
+          accessFilter: state.get('accessFilter'),
         });
         const summary = getSummary(data);
         newState

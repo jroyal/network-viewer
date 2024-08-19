@@ -271,6 +271,8 @@ const applyFilter = (filterOption, filter, entry) => {
       return entry.url && entry.url.includes(filter.value);
     case FILTER_OPTION.BODY:
       return entry.body && entry.body.includes(filter.value);
+    case 'access':
+      return filter.value ? entry.url.includes('cloudflareaccess') || entry.url.includes('/cdn-cgi/access') : true;
     default:
       return true;
   }
@@ -281,10 +283,11 @@ export const filterData = ({
   search = {},
   statusFilter = {},
   typeFilter = {},
+  accessFilter = {},
 }) => {
   const trimmedSearch = search.value && search.value.trim();
 
-  if (!trimmedSearch && !statusFilter.value && !typeFilter.value) {
+  if (!trimmedSearch && !statusFilter.value && !typeFilter.value && !accessFilter) {
     return data;
   }
 
@@ -301,6 +304,10 @@ export const filterData = ({
       option: search.name,
       filter: { value: trimmedSearch },
     },
+    {
+      option: 'access',
+      filter: accessFilter,
+    }
   ];
 
   return data.filter((entry) => filters.every(({
